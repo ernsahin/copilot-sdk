@@ -123,6 +123,7 @@ public class ResumeSessionConfig {
     private String gitHubToken;
     @JsonIgnore
     private GitHubTokenProvider gitHubTokenProvider;
+    private String remoteSession;
     private CopilotExpAssignmentResponse expAssignments;
     private Boolean enableManagedSettings;
     private Boolean enforceManagedModelDefaults;
@@ -2260,6 +2261,34 @@ public class ResumeSessionConfig {
     }
 
     /**
+     * Gets the per-session remote behavior control.
+     * <p>
+     * See {@link SessionConfig#getRemoteSession()} for details on possible values.
+     *
+     * @return the remote session mode, or {@code null} if not set
+     * @since 1.4.0
+     */
+    public String getRemoteSession() {
+        return remoteSession;
+    }
+
+    /**
+     * Sets the per-session remote behavior control.
+     * <p>
+     * See {@link SessionConfig#setRemoteSession(String)} for details on possible
+     * values.
+     *
+     * @param remoteSession
+     *            the remote session mode
+     * @return this config for method chaining
+     * @since 1.4.0
+     */
+    public ResumeSessionConfig setRemoteSession(String remoteSession) {
+        this.remoteSession = remoteSession;
+        return this;
+    }
+
+    /**
      * Gets the ExP assignment ("flight") data injected by a trusted integrator.
      *
      * @return the ExP assignment data, or {@code null} if not set
@@ -2488,6 +2517,7 @@ public class ResumeSessionConfig {
         copy.githubMcpToolConfig = this.githubMcpToolConfig;
         copy.gitHubToken = this.gitHubToken;
         copy.gitHubTokenProvider = this.gitHubTokenProvider;
+        copy.remoteSession = this.remoteSession;
         copy.featureFlags = this.featureFlags != null ? new java.util.HashMap<>(this.featureFlags) : null;
         copy.expAssignments = this.expAssignments;
         copy.enableManagedSettings = this.enableManagedSettings;

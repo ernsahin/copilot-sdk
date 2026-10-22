@@ -124,6 +124,7 @@ public class SessionConfig {
     private String gitHubToken;
     @JsonIgnore
     private GitHubTokenProvider gitHubTokenProvider;
+    private String remoteSession;
     private CloudSessionOptions cloud;
     private CopilotExpAssignmentResponse expAssignments;
     private Boolean enableManagedSettings;
@@ -2375,6 +2376,45 @@ public class SessionConfig {
     }
 
     /**
+     * Gets the per-session remote behavior control.
+     * <p>
+     * Possible values:
+     * <ul>
+     * <li>{@code "off"} — local only, no remote export (default)</li>
+     * <li>{@code "export"} — export session events to GitHub without enabling
+     * remote steering</li>
+     * <li>{@code "on"} — export to GitHub AND enable remote steering</li>
+     * </ul>
+     *
+     * @return the remote session mode, or {@code null} if not set
+     * @since 1.4.0
+     */
+    public String getRemoteSession() {
+        return remoteSession;
+    }
+
+    /**
+     * Sets the per-session remote behavior control.
+     * <p>
+     * Possible values:
+     * <ul>
+     * <li>{@code "off"} — local only, no remote export (default)</li>
+     * <li>{@code "export"} — export session events to GitHub without enabling
+     * remote steering</li>
+     * <li>{@code "on"} — export to GitHub AND enable remote steering</li>
+     * </ul>
+     *
+     * @param remoteSession
+     *            the remote session mode
+     * @return this config instance for method chaining
+     * @since 1.4.0
+     */
+    public SessionConfig setRemoteSession(String remoteSession) {
+        this.remoteSession = remoteSession;
+        return this;
+    }
+
+    /**
      * Gets the cloud session options.
      * <p>
      * When set, creates a remote session in the cloud instead of a local session.
@@ -2657,6 +2697,7 @@ public class SessionConfig {
         copy.githubMcpToolConfig = this.githubMcpToolConfig;
         copy.gitHubToken = this.gitHubToken;
         copy.gitHubTokenProvider = this.gitHubTokenProvider;
+        copy.remoteSession = this.remoteSession;
         copy.cloud = this.cloud;
         copy.featureFlags = this.featureFlags != null ? new java.util.HashMap<>(this.featureFlags) : null;
         copy.expAssignments = this.expAssignments;
